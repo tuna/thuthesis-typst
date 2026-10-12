@@ -1,0 +1,68 @@
+% !TEX encoding = UTF-8
+% !TEX program = xelatex
+
+% This entrypoint is compiled from the pinned ThuThesis checkout. Its support
+% files (thusetup.tex, data/, figures/, and ref/) therefore come from the same
+% revision as thuthesis.cls.
+\providecommand\CompareOutput{electronic}
+\documentclass{thuthesis}
+\input{thusetup}
+
+\thusetup{
+  output = \CompareOutput,
+  title = {清华大学学位论文 Typst 模板\\使用示例文档 v0.1.0},
+  title* = {An Introduction to the Typst Thesis Template of Tsinghua
+  University},
+  degree-category = {工学硕士},
+  degree-category* = {Master of Science},
+  department = {计算机科学与技术系},
+  discipline = {计算机科学与技术},
+  discipline* = {Computer Science and Technology},
+  author = {薛瑞尼},
+  author* = {Xue Ruini},
+  supervisor = {郑纬民, 教授},
+  supervisor* = {Professor Zheng Weimin},
+  associate-supervisor = {陈文光, 教授},
+  associate-supervisor* = {Professor Chen Wenguang},
+  date = {2026-08-08},
+  clc = {TP3},
+  udc = {004},
+  id = {2026-01},
+  discipline-level-1 = {Computer Science and Technology},
+  discipline-level-2 = {Computer Systems Architecture},
+  start-date = {2024-08-01},
+  end-date = {2026-07-31},
+}
+
+\begin{document}
+
+\maketitle
+\input{data/committee}
+\copyrightpage
+
+\frontmatter
+\input{data/abstract}
+\tableofcontents
+\listoffigures
+\listoftables
+\input{data/denotation}
+
+\mainmatter
+\input{data/chap01}
+\input{data/chap02}
+\input{data/chap03}
+\input{data/chap04}
+
+\bibliography{ref/refs}
+
+\appendix
+\input{data/appendix}
+
+\backmatter
+\input{data/acknowledgements}
+\statement
+\input{data/resume}
+\input{data/comments}
+\input{data/resolution}
+
+\end{document}

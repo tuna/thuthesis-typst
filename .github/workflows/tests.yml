@@ -1,0 +1,82 @@
+name: Tests
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/tests.yml"
+      - "contrib/**"
+      - "src/**"
+      - "template/**"
+      - "typst.toml"
+      - "tests/**"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  tests:
+    name: ${{ matrix.degree }}-${{ matrix.language }}-${{ matrix.output }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    container:
+      image: ghcr.io/${{ github.repository }}-ci:0.15.1
+    strategy:
+      fail-fast: false
+      max-parallel: 8
+      matrix:
+        degree: [bachelor, master, doctor, postdoc]
+        language: [chinese, english]
+        output: [electronic, print]
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/checkout@v7
+        with:
+          repository: tuna/thuthesis
+          ref: b50ce596c248964fe04f317a8fe9b1a0f6b34174
+          path: latex-reference
+      - name: Build original PDFs
+        run: |
+          case="${{ matrix.degree }}-${{ matrix.language }}-${{ matrix.output }}"
+          (cd latex-reference && xelatex -halt-on-error -interaction=batchmode thuthesis.ins)
+          for fixture in full focused; do
+            out="$GITHUB_WORKSPACE/build/artifacts/$case/$fixture"
+            mkdir -p "$out"
+            if [ "$fixture" = full ]; then
+              tex="main${{ matrix.language == 'english' && '-en' || '' }}"; typ=contrib/main.typ
+            else
+              tex=cases; typ=tests/cases.typ
+            fi
+            (cd latex-reference && BIBINPUTS="$PWD:" BSTINPUTS="$PWD:" latexmk -norc -xelatex -quiet -halt-on-error \
+              -outdir="$out" -jobname=latex \
+              -usepretex='\PassOptionsToClass{degree=${{ matrix.degree }},degree-type=academic,language=${{ matrix.language }},thesis-type=thesis,style-override=none,fontset=fandol}{thuthesis}\def\CompareOutput{${{ matrix.output }}}' \
+              "$GITHUB_WORKSPACE/tests/$tex.tex")
+            typst compile --root . --input degree-type=academic --input "degree=${{ matrix.degree }}" \
+              --input "lang=${{ matrix.language == 'chinese' && 'zh' || 'en' }}" \
+              --input "twoside=${{ matrix.output == 'print' }}" "$typ" "$out/typst.pdf"
+          done
+      - name: Upload case bundle
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: tests-case-${{ matrix.degree }}-${{ matrix.language }}-${{ matrix.output }}
+          path: build/artifacts/**/*.pdf
+          if-no-files-found: error
+          retention-days: 1
+  merge-comparisons:
+    name: Merge comparison bundles
+    needs: tests
+    if: ${{ always() && needs.tests.result != 'skipped' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Merge case artifacts
+        id: merge
+        uses: actions/upload-artifact/merge@v7
+        with:
+          name: tests-review
+          pattern: tests-case-*
+          delete-merged: true
+          retention-days: 7
+          compression-level: 0
+      - name: Link original PDFs
+        env:
+          GITHUB_ARTIFACT_URL: ${{ steps.merge.outputs.artifact-url }}
+        run: |
+          echo "[Download original LaTeX and Typst PDFs]($GITHUB_ARTIFACT_URL)" >> "$GITHUB_STEP_SUMMARY"

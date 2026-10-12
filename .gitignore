@@ -4,3 +4,8 @@
 .zed/
 *.pdf
 record*.json
+build/
+__pycache__/
+
+!/src/assets/thu-fig-logo.pdf
+!/src/assets/thu-text-logo.pdf

@@ -26,7 +26,8 @@
 
   if fmt-len == 0 or (num-len > depth and depth > 0) { return }
 
-  numbering(formats.at(calc.min(fmt-len, num-len) - 1) + supplyment, ..numbers)
+  let format = formats.at(calc.min(fmt-len, num-len) - 1)
+  if type(format) == str { numbering(format, ..numbers) } else { format(..numbers) } + supplyment
 }
 
 /// Page break for two-sided layout

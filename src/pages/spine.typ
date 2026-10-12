@@ -1,26 +1,18 @@
 /// Spine Page
-///
-/// - info (dictionary): The information to be displayed on the spine page.
-/// - fonts (dictionary): The font family to use.
-/// - twoside (bool, str): Whether to use two-sided printing.
-/// - anonymous (bool): Whether to use anonymous mode.
-/// - text-font (str): The font family to use for the text on the spine.
-/// - text-size (str | length): The font size to use for the text on the spine.
-/// -> content
 #let spine(
-  // from entry
-  info: (:),
-  fonts: (:),
-  twoside: false,
-  anonymous: false,
-  // options
-  text-font: "FangSong",
-  text-size: "三号",
+  info: (:), // (dictionary) The information to be displayed on the spine page.
+  fonts: (:), // (dictionary) Font family configuration.
+  twoside: false, // (bool, str) Enable two-sided layout.
+  anonymous: false, // (bool) Hide identifying information.
+  text-font: "FangSong", // (str) The font family to use for the text on the spine.
+  text-size: "三号", // (str | length) The font size to use for the text on the spine.
 ) = {
   import "../utils/font.typ": _use-fonts, use-size
   import "../utils/util.typ": parsed-title, twoside-pagebreak
 
-  info.title = context if "title" in info { parsed-title(info.title).sum() } else { document.title }
+  info.title = context if "title" in info {
+    parsed-title(info.title).sum()
+  } else { document.title }
   info.author = context info.at("author", default: document.author.first())
 
   let use-fonts = name => _use-fonts(fonts, name)

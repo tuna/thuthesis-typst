@@ -1,5 +1,4 @@
 name: Render nightly thesis
-
 on:
   push:
     branches:
@@ -7,56 +6,37 @@ on:
     paths:
       - "src/**"
       - "template/**"
+      - "contrib/**"
+      - "typst.toml"
+      - ".github/workflows/build.yml"
   pull_request:
     types: [opened, edited, synchronize]
     paths:
       - "src/**"
       - "template/**"
+      - "contrib/**"
+      - "typst.toml"
+      - ".github/workflows/build.yml"
   workflow_dispatch:
-
 jobs:
   render-paper:
     runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/${{ github.repository }}-ci:0.15.1
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v7
-
-      - name: Setup Typst
-        uses: typst-community/setup-typst@v5
-        with:
-          typst-version: latest
-
-      - name: Install Fonts
+      - name: Render templates
         run: |
-          curl --proto '=https' --tlsv1.2 -sSLf https://github.com/tuna/thuthesis-typst/releases/latest/download/fonts.zip -o fonts.zip
-          unzip -q fonts.zip && rm fonts.zip
-
-      - name: Render Bachelor Thesis
-        run: |
-          ./template/thesis.typ --root .. --font-path fonts bachelor-academic.pdf
-          ./template/thesis.typ --root .. --font-path fonts bachelor-academic-anonymous.pdf --input anonymous=true
-          ./template/thesis.typ --root .. --font-path fonts bachelor-academic-twoside.pdf --input twoside=true
-          ./template/thesis.typ --root .. --font-path fonts bachelor-academic-anonymous-twoside.pdf --input anonymous=true --input twoside=true
-
-      - name: Render Master Thesis
-        run: |
-          ./template/thesis.typ --root .. --font-path fonts master-academic.pdf --input degree=master
-          ./template/thesis.typ --root .. --font-path fonts master-academic-anonymous.pdf --input degree=master --input anonymous=true
-          ./template/thesis.typ --root .. --font-path fonts master-academic-twoside.pdf --input degree=master --input twoside=true
-          ./template/thesis.typ --root .. --font-path fonts master-academic-anonymous-twoside.pdf --input degree=master --input anonymous=true --input twoside=true
-
+          mkdir -p build/nightly
+          for lang in zh en; do
+            typst compile --root . --input "lang=$lang" template/thesis.typ "build/nightly/thesis-$lang.pdf"
+            typst compile --root . --input "lang=$lang" contrib/main.typ "build/nightly/reference-$lang.pdf"
+          done
       - name: Upload Artifacts
         if: github.event_name != 'pull_request'
         uses: actions/upload-artifact@v7
         with:
           name: thesis
-          path: |
-            bachelor-academic.pdf
-            bachelor-academic-anonymous.pdf
-            bachelor-academic-twoside.pdf
-            bachelor-academic-anonymous-twoside.pdf
-
-            master-academic.pdf
-            master-academic-anonymous.pdf
-            master-academic-twoside.pdf
-            master-academic-anonymous-twoside.pdf
+          path: build/nightly/*.pdf
+          if-no-files-found: error

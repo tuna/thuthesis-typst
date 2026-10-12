@@ -1,29 +1,15 @@
 /// Declaration Page
-///
-/// - anonymous (bool): Whether to use anonymous mode.
-/// - twoside (bool): Whether to use two-sided layout.
-/// - degree (str): The degree.
-/// - title (content): The title of the declaration page.
-/// - outlined (bool): Whether to outline the page.
-/// - bookmarked (bool): Whether to add a bookmark for the page.
-/// - confidential (bool): Whether the thesis is confidential.
-/// - body (content): The body content of the declaration page.
-/// - back-vspace (length): The vertical space after the body.
-/// - back (content): The back text for signatures.
-/// -> content
 #let declaration(
-  // from entry
-  anonymous: false,
-  twoside: false,
-  degree: "bachelor",
-  // options
-  title: [声　明],
-  outlined: true,
-  bookmarked: true,
-  confidential: false,
-  body: [],
-  back-vspace: 38pt,
-  back: "签  名：____________  日  期：____________",
+  anonymous: false, // (bool) Hide identifying information.
+  twoside: false, // (bool, str) Enable two-sided layout.
+  degree: "bachelor", // (str) Degree level.
+  title: [声　明], // (content) Page title.
+  outlined: true, // (bool) Include the page in the outline.
+  bookmarked: true, // (bool) Add a PDF bookmark.
+  confidential: false, // (bool) Whether the thesis is confidential.
+  body: [], // (content) The body content of the declaration page.
+  back-vspace: 38pt, // (length) The vertical space after the body.
+  back: "签  名：____________  日  期：____________", // (content) The back text for signatures.
 ) = {
   if anonymous { return }
 
@@ -45,7 +31,13 @@
   /// Render the page
   twoside-pagebreak(twoside)
 
-  heading(level: 1, numbering: none, outlined: outlined, bookmarked: bookmarked, title)
+  heading(
+    level: 1,
+    numbering: none,
+    outlined: outlined,
+    bookmarked: bookmarked,
+    title,
+  )
 
   if is-not-empty(body) { body } else {
     if degree == "bachelor" { preset-body.bachelor } else {

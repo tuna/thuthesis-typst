@@ -1,35 +1,18 @@
 /// Outline Wrapper Page
-///
-/// - twoside (bool, str): Whether to use two-sided printing
-/// - fonts (dictionary): The font family to use.
-/// - depth (int): The maximum depth of the outline.
-/// - font (array): The font family for each heading level.
-/// - size (array): The font size for each heading level.
-/// - title (content): The title of the outline page.
-/// - outlined (bool): Whether to outline the page.
-/// - bookmarked (bool): Whether to add bookmarks for the page.
-/// - above (array): The vertical space above each heading based on its level.
-/// - below (array): The vertical space below each heading based on its level.
-/// - indent (array): The indentation for each heading level.
-/// - gap (length): The gap between the heading and the numbering.
-/// - fill (array): The fill content for the outline entries.
-/// -> content
 #let outline-wrapper(
-  // from entry
-  twoside: false,
-  fonts: (:),
-  // options
-  depth: 3,
-  font: ("HeiTi", "SongTi"),
-  size: ("小四",),
-  title: [目　录],
-  outlined: true,
-  bookmarked: true,
-  above: (10.5pt, 11.8pt),
-  below: (11.4pt, 11.8pt),
-  indent: (0pt, 12pt, 12pt),
-  gap: .3em,
-  fill: (repeat([.], gap: .1pt),),
+  twoside: false, // (bool, str) Enable two-sided layout.
+  fonts: (:), // (dictionary) Font family configuration.
+  depth: 3, // (int) The maximum depth of the outline.
+  font: ("HeiTi", "SongTi"), // (array) The font family for each heading level.
+  size: ("小四",), // (array) The font size for each heading level.
+  title: [目　录], // (content) Page title.
+  outlined: true, // (bool) Include the page in the outline.
+  bookmarked: true, // (bool) Add a PDF bookmark.
+  above: (10.5pt, 11.8pt), // (array) The vertical space above each heading based on its level.
+  below: (11.4pt, 11.8pt), // (array) The vertical space below each heading based on its level.
+  indent: (0pt, 12pt, 12pt), // (array) The indentation for each heading level.
+  gap: .3em, // (length) The gap between the heading and the numbering.
+  fill: (repeat([.], gap: .1pt),), // (array) The fill content for the outline entries.
 ) = {
   import "../utils/font.typ": _use-fonts, use-size
   import "../utils/util.typ": array-at, is-not-empty, twoside-pagebreak
@@ -45,7 +28,9 @@
   heading(level: 1, outlined: outlined, bookmarked: bookmarked, title)
 
   // set outline style
-  set outline(indent: level => indent.slice(0, calc.min(level + 1, indent.len())).sum())
+  set outline(indent: level => indent
+    .slice(0, calc.min(level + 1, indent.len()))
+    .sum())
 
   show outline.entry: it => link(
     it.element.location(),

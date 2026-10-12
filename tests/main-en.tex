@@ -1,0 +1,544 @@
+% !TEX encoding = UTF-8
+% !TEX program = xelatex
+% !TEX spellcheck = en_US
+
+% English counterpart of contrib/main.typ. This
+% entrypoint is compiled from
+% the pinned ThuThesis checkout and deliberately uses its support files.
+\providecommand\CompareOutput{electronic}
+\documentclass{thuthesis}
+\input{thusetup}
+
+\thusetup{
+  output = \CompareOutput,
+  language = english,
+  title = {Tsinghua University Typst Thesis Template\\Sample Document v0.1.0},
+  title* = {An Introduction to the Typst Thesis Template of Tsinghua
+  University},
+  degree-category = {Master of Science},
+  degree-category* = {Master of Science},
+  department = {Department of Computer Science and Technology},
+  discipline = {Computer Science and Technology},
+  discipline* = {Computer Science and Technology},
+  author = {Xue Ruini},
+  author* = {Xue Ruini},
+  supervisor = {Zheng Weimin, Professor},
+  supervisor* = {Professor Zheng Weimin},
+  associate-supervisor = {Chen Wenguang, Professor},
+  associate-supervisor* = {Professor Chen Wenguang},
+  date = {2026-08-08},
+  clc = {TP3},
+  udc = {004},
+  id = {2026-01},
+  discipline-level-1 = {Computer Science and Technology},
+  discipline-level-2 = {Computer Systems Architecture},
+  start-date = {2024-08-01},
+  end-date = {2026-07-31},
+}
+
+\begin{document}
+
+\maketitle
+
+\begin{committee}[name={Thesis Supervision Committee, Reviewers, and
+  Defense Committee}]
+  \newcolumntype{C}[1]{@{}>{\centering\arraybackslash}p{#1}}
+  \section*{Thesis Supervision Committee}
+  \begin{center}
+    \begin{tabular}{C{3cm}C{4cm}C{8cm}@{}}
+      Li XX    & Professor           & Tsinghua University \\
+      Wang XX  & Associate Professor & Tsinghua University \\
+      Zhang XX & Assistant Professor & Tsinghua University \\
+    \end{tabular}
+  \end{center}
+  \section*{External Reviewers}
+  \begin{center}Anonymous review
+  \end{center}
+  \section*{Defense Committee}
+  \begin{center}
+    \begin{tabular}{C{2.75cm}C{2.98cm}C{4.63cm}C{4.63cm}@{}}
+      Chair     & Zhao XX & Professor           & Tsinghua University \\
+      Member    & Liu XX  & Professor           & Tsinghua University \\
+      Member    & Yang XX & Research Professor  & Institute XXXXXXX,
+      Chinese Academy of Sciences \\
+      Secretary & Wu XX   & Assistant Research Professor & Tsinghua
+      University \\
+    \end{tabular}
+  \end{center}
+\end{committee}
+
+\copyrightpage
+
+\frontmatter
+\input{data/abstract}
+\tableofcontents
+\listoffigures
+\listoftables
+
+\begin{denotation}[3cm]
+\item[PI] Polyimide
+\item[MPI] Polyimide model compound, N-phenylphthalimide
+\item[PBI] Polybenzimidazole
+\item[MPBI] Polybenzimidazole model compound, N-phenylbenzimidazole
+\item[PY] Polypyrrolone
+\item[PMDA-BDA] Polypyrrolone film synthesized from PMDA and BDA
+\item[MPY] Polypyrrolone model compound
+\item[As-PPT] Asymmetric polyphenyl triazine
+\item[MAsPPT] Asymmetric polyphenyl triazine monomer model compound
+\item[DMAsPPT] Asymmetric polyphenyl triazine dimer model compound
+\item[S-PPT] Symmetric polyphenyl triazine
+\item[MSPPT] Symmetric polyphenyl triazine model compound
+\item[PPQ] Polyphenylquinoxaline
+\item[MPPQ] Polyphenylquinoxaline model compound
+\item[HMPI] Protonated product of the polyimide model compound
+\item[HMPY] Protonated product of the polypyrrolone model compound
+\item[HMPBI] Protonated product of the polybenzimidazole model compound
+\item[HMAsPPT] Protonated product of the asymmetric polyphenyl
+  triazine model compound
+\item[HMSPPT] Protonated product of the symmetric polyphenyl triazine
+  model compound
+\item[HMPPQ] Protonated product of the polyphenylquinoxaline model compound
+\item[PDT] Thermal decomposition temperature
+\item[HPLC] High-performance liquid chromatography
+\item[HPCE] High-performance capillary electrophoresis
+\item[LC-MS] Liquid chromatography--mass spectrometry
+\item[TIC] Total ion content
+\item[\textit{ab initio}] First-principles quantum-chemistry calculation method
+\item[DFT] Density functional theory
+\item[$E_a$] Activation energy of a chemical reaction
+\item[ZPE] Zero-point vibrational energy
+\item[PES] Potential energy surface
+\item[TS] Transition state
+\item[TST] Transition-state theory
+\item[$\increment G^\neq$] Activation free energy
+\item[$\kappa$] Transmission coefficient
+\item[IRC] Intrinsic reaction coordinate
+\item[$\nu_i$] Imaginary frequency
+\item[ONIOM] Our Own N-layered Integrated Molecular Orbital and
+  Molecular Mechanics
+\item[SCF] Self-consistent field
+\item[SCRF] Self-consistent reaction field
+\end{denotation}
+
+\mainmatter
+
+\chapter{Writing the Main Body of a Thesis}
+
+In addition to satisfying formal presentation requirements, a graduate thesis
+should follow several common principles in its content.
+
+A graduate thesis should normally address one coherent theme rather than combine
+several unrelated pieces of work. It should investigate a specific problem in a
+discipline thoroughly and systematically and reach conclusions of value. The
+research theme should not be excessively broad. For example, ``A Study of the
+Reform of Chinese State-owned Enterprises'' is too broad because such reform
+involves too many issues to examine fully in a single graduate thesis.
+
+\section{Language and Expression}
+
+Except for international graduate students, degree theses must be written in
+Chinese. They should use standardized Chinese characters and simplified Chinese,
+apart from ancient characters required by research on classical Chinese and
+foreign-language works cited in the references.
+
+International graduate students normally write their theses in Chinese or
+English and follow the same formatting requirements. The thesis must have a
+Chinese cover.
+
+A graduate thesis is an academic work. Its exposition should therefore be
+rigorous and concise, with clear emphasis. Common disciplinary knowledge should
+be stated briefly or omitted. The argument should be sound, the data reliable,
+the explanation thorough, the reasoning rigorous, the wording economical, and
+the organization clear. Literary, emotive, or otherwise nonacademic language
+should be avoided.
+
+Any uncommon new name, term, or concept introduced in the thesis should be
+explained immediately.
+
+\section{Writing the Thesis Title}
+
+The title should reflect the principal content of the thesis concisely,
+precisely, and specifically. It is an accurate description of the object of
+study and should generally indicate the conclusion to some extent. A title
+should tell readers not only what problem the thesis investigates but also what
+the study concludes. For example, ``Between Fact and Fiction: The Views of Mel,
+Carpenter, and Wolfe on Journalism'' is more professional and precise than ``A
+Study of Three American Writers' Views on Journalism.''
+
+\section{Writing the Abstract}
+
+The abstract is a highly condensed account of the thesis and should be
+independent and self-contained: a short but complete article. It should give the
+reader an overall understanding of the research methods and conclusions.
+Accordingly, it should describe the problem and objective, briefly introduce the
+methods and research process, and distill the conclusions, with emphasis on the
+results and conclusions.
+
+The abstract should not be written as an outline of the full text. In
+particular,
+statements such as ``Chapter 1~\ldots; Chapter 2~\ldots; \ldots'' should be
+avoided.
+
+\section{Writing the Introduction}
+
+The introduction of a thesis generally contains five parts: (1) statement of the
+problem; (2) background and significance; (3) literature review; (4) research
+methods; and (5) organization of the thesis.
+\begin{itemize}
+  \item \textbf{Statement of the problem:} Clearly explain what
+    problem is being studied.\footnote{Choose a topic with a genuine
+    problem to solve; do not select a non-problem as the object of research.}
+  \item \textbf{Background and significance:} Explain why the topic
+    was selected, including its contribution to the discipline and
+    its theoretical and practical significance.
+  \item \textbf{Literature review:} Synthesize and critically review
+    work within the topic area. Identify the current state of
+    research, unresolved problems, and the exploratory contribution
+    of the present study.
+  \item \textbf{Research methods:} Explain the academic research
+    methods used in the thesis.
+  \item \textbf{Organization of the thesis:} Introduce the structure
+    of the document.
+\end{itemize}
+
+\section{Writing the Main Text}
+
+This part presents the author's research and should distinguish it clearly from
+the work of others. Material already discussed in the literature review need not
+be repeated. The chapters should be organically connected and follow a logical
+sequence.
+
+\section{Writing the Conclusions}
+
+The conclusions distill and summarize the main results and arguments.
+They should
+be concise, accurate, and complete, enabling readers to understand the
+significance, purpose, and work of the thesis. They are the final overall
+conclusions, not a simple repetition of chapter summaries. They should state the
+central arguments, explain the author's original work and the
+position, role, and
+significance of the results in the field, identify limitations, and offer
+suggestions for future work. The author's results must be distinguished strictly
+from those of the supervisor and other researchers.
+
+Assessment of the work should remain factual. Terms such as
+``first,'' ``leading,''
+or ``fills a gap'' should be avoided unless supported by sufficient evidence.
+
+\chapter{Examples of Figures and Tables}
+
+\section{Figures}
+
+Images are normally inserted in a \texttt{figure} environment with
+\verb|\includegraphics|, as in Figure~\ref{fig:example-en}. Vector graphics
+should preferably use PDF, photographs should use JPG, and other raster graphics
+should use lossless PNG.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.5\linewidth]{example-image-a.pdf}
+  \caption*{Note: Keep the title separate from explanatory text,
+  which belongs below the figure or in the main text.}
+  \caption{Example image}
+  \label{fig:example-en}
+\end{figure}
+
+Notes to a figure or table should be identified by lowercase English letters in
+sequence and placed below it. If a figure contains two or more subfigures, label
+them (a), (b), (c), and so on, and provide a title for each one.
+
+\begin{figure}
+  \centering
+  \subcaptionbox{Subfigure
+  A}{\includegraphics[width=0.35\linewidth]{example-image-a.pdf}}
+  \subcaptionbox{Subfigure
+  B}{\includegraphics[width=0.35\linewidth]{example-image-b.pdf}}
+  \caption{Example with multiple subfigures}
+\end{figure}
+
+\section{Tables}
+
+A table should be self-explanatory, and every quantity and unit should be
+identified by its symbol. For clarity and readability, use three-line tables
+such as Table~\ref{tab:three-line-en}.
+
+\begin{table}
+  \centering
+  \caption{Example three-line table}
+  \begin{tabular}{ll}
+    \toprule
+    File name & Description \\
+    \midrule
+    thuthesis.dtx   & Template source, including documentation and comments \\
+    thuthesis.cls   & Template class file \\
+    thuthesis-*.bst & BibTeX bibliography style files \\
+    \bottomrule
+  \end{tabular}
+  \label{tab:three-line-en}
+\end{table}
+
+Notes in a table should be identified by lowercase English letters in sequence
+and placed below the table.
+
+\begin{table}
+  \centering
+  \begin{threeparttable}[c]
+    \caption{Example table with notes}
+    \begin{tabular}{ll}
+      \toprule
+      File name & Description \\
+      \midrule
+      thuthesis.dtx\tnote{a} & Template source, including
+      documentation and comments \\
+      thuthesis.cls\tnote{b} & Template class file \\
+      thuthesis-*.bst & BibTeX bibliography style files \\
+      \bottomrule
+    \end{tabular}
+    \begin{tablenotes}
+    \item[a] This file can generate the template manual or extract a
+      compact class file.
+    \item[b] Regenerate the class file when updating the template.
+    \end{tablenotes}
+  \end{threeparttable}
+\end{table}
+
+When a table continues onto another page, mark it as a continued table and
+repeat the header on every page.
+
+\begin{longtable}{cccc}
+  \caption{Title of a multipage table} \\
+  \toprule
+  Heading 1 & Heading 2 & Heading 3 & Heading 4 \\
+  \midrule
+  \endfirsthead
+  \caption*{Continued table~\thetable} \\
+  \toprule
+  Heading 1 & Heading 2 & Heading 3 & Heading 4 \\
+  \midrule
+  \endhead
+  \bottomrule
+  \endfoot
+  Row 1 & & & \\ Row 2 & & & \\ Row 3 & & & \\ Row 4 & & & \\
+  Row 5 & & & \\ Row 6 & & & \\ Row 7 & & & \\ Row 8 & & & \\
+  Row 9 & & & \\ Row 10 & & & \\
+\end{longtable}
+
+\section{Algorithms}
+
+The template does not prescribe a pseudocode package. The following example uses
+the \texttt{algorithms} package.
+
+\renewcommand{\algorithmicrequire}{\textbf{Input:}\unskip}
+\renewcommand{\algorithmicensure}{\textbf{Output:}\unskip}
+\begin{algorithm}
+  \caption{Compute $y=x^n$}
+  \small
+  \begin{algorithmic}
+    \REQUIRE $n \geq 0$
+    \ENSURE $y=x^n$
+    \STATE $y \leftarrow 1$
+    \STATE $X \leftarrow x$
+    \STATE $N \leftarrow n$
+    \WHILE{$N \neq 0$}
+    \IF{$N$ is even}
+    \STATE $X \leftarrow X \times X$
+    \STATE $N \leftarrow N/2$
+    \ELSE
+    \STATE $y \leftarrow y \times X$
+    \STATE $N \leftarrow N-1$
+    \ENDIF
+    \ENDWHILE
+  \end{algorithmic}
+\end{algorithm}
+
+\chapter{Mathematical Symbols and Equations}
+
+\section{Mathematical Symbols}
+
+Mathematical symbols in a Chinese thesis normally follow GB/T 3102.11--1993,
+``Mathematical Signs and Symbols for Use in the Physical Sciences and
+Technology,''\footnote{The former mandatory standard became a
+recommended standard on March 23, 2017.}
+which adopted ISO 31-11:1992\footnote{The current edition is ISO 80000-2:2019.}
+with modifications. Its conventions differ in several respects from the
+defaults used by the American Mathematical Society.
+
+The author should apply the chosen standard consistently to mathematical
+constants, special functions, differential symbols, vectors, and matrices. For
+example,
+\begin{equation*}
+  \uppi=3.14\dots; \quad \symup{i}^2=-1; \quad
+  \symup{e}=\lim_{n\to\infty}\left(1+\frac{1}{n}\right)^n.
+\end{equation*}
+Vectors, matrices, and tensors are normally bold italic, as in $\symbf{x}$ and
+$\symbf{\Sigma}$; the natural logarithm is written $\ln x$.
+
+English theses use the default \TeX{} mathematical style. Authors may select a
+different style explicitly when required. Quantities and units should use
+consistent formats, for example \SI{6.4e6}{m}, \SI{9}{\micro\meter},
+\si{kg.m.s^{-1}}, and \SIrange{10}{20}{\degreeCelsius}.
+
+\section{Mathematical Equations}
+
+Display equations may use the \texttt{equation} environment. References should
+be enclosed in parentheses, as in Equation~\eqref{eq:example-en}.
+\begin{equation}
+  \frac{1}{2\uppi\symup{i}}\int_\gamma f
+  =\sum_{k=1}^m n(\gamma;a_k)\mathscr{R}(f;a_k).
+  \label{eq:example-en}
+\end{equation}
+Multiline equations should align at the equals sign where possible:
+\begin{align}
+  a &= b+c+d+e \\
+  &= f+g.
+\end{align}
+
+\section{Mathematical Theorems}
+
+The template can configure theorem environments through \texttt{amsthm}.
+\begin{theorem}[Lindeberg--L\'{e}vy central limit theorem]
+  Let $X_1,X_2,\dots,X_n$ be independent and identically distributed random
+  variables with expectation $\mu$ and finite variance $\sigma^2\ne0$. Define
+  $\bar X_n=n^{-1}\sum_{i=1}^n X_i$. Then
+  \begin{equation}
+    \lim_{n\to\infty}P\left(\frac{\sqrt n(\bar X_n-\mu)}{\sigma}\le
+    z\right)=\Phi(z),
+  \end{equation}
+  where $\Phi(z)$ is the cumulative distribution function of the standard normal
+  distribution.
+\end{theorem}
+\begin{proof}
+  The result follows directly from the classical central limit theorem.
+\end{proof}
+
+\chapter{Citing References}
+
+ThuThesis supports both BibTeX and BibLaTeX. This example uses BibTeX with the
+\texttt{natbib} package.
+
+\section{Numeric Citations}
+
+Numeric citations are the default for graduate theses, and reference numbers are
+normally printed as superscripts. Ordinary citations, author names in prose,
+citations with page numbers, and multiple citations can be written with
+\verb|\cite|, \verb|\citet|, and \verb|\citep|, for example
+\cite{zhangkun1994,zhukezhen1973}.
+
+\section{Author--Year Citations}
+
+Author--year citations can be selected in the document configuration without
+changing the bibliography database. Every item in the reference list should
+normally be cited in the text. This example includes the complete supplied
+database so that the bibliography layout can be inspected.
+\nocite{*}
+
+\bibliography{ref/refs}
+
+\appendix
+\chapter{Supplementary Material}
+
+An appendix contains material closely related to the thesis that would disrupt
+the organization or logic of the main text if included there, such as important
+data tables, programs, or statistical tables. It supplements the main body and
+may be included as needed.
+
+Figures, tables, and mathematical expressions in an appendix are numbered
+separately from those in the main text and carry the appendix identifier.
+
+\section{Figures}
+\begin{figure}
+  \centering
+  \includegraphics[width=0.6\linewidth]{example-image-a.pdf}
+  \caption{Example figure in an appendix}
+\end{figure}
+
+\section{Tables}
+\begin{table}
+  \centering
+  \caption{Example table in an appendix}
+  \begin{tabular}{ll}
+    \toprule
+    File name & Description \\
+    \midrule
+    thuthesis.dtx   & Template source, including documentation and comments \\
+    thuthesis.cls   & Template class file \\
+    thuthesis-*.bst & BibTeX bibliography style files \\
+    thuthesis-*.bbx & BibLaTeX bibliography style files \\
+    thuthesis-*.cbx & BibLaTeX citation style files \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\section{Mathematical Expressions}
+\begin{equation}
+  \frac{1}{2\uppi\symup{i}}\int_\gamma f
+  =\sum_{k=1}^m n(\gamma;a_k)\mathscr{R}(f;a_k).
+\end{equation}
+
+\section{Citations}
+An appendix citation such as \cite{dupont1974bone} can be accompanied by another
+reference such as \cite{zhengkaiqing1987}.
+
+\backmatter
+
+\begin{acknowledgements}
+  I sincerely thank my supervisor, Professor ×××, and Associate Professor ×× of
+  the Department of Physics for their attentive guidance. Their teaching by word
+  and example will benefit me throughout my life.
+
+  During nine months of collaborative research in the Department of Chemistry at
+  the Massachusetts Institute of Technology, I received generous guidance and
+  assistance from Professor Robert Field, for which I am deeply grateful.
+
+  I thank Professor ×××, director of the ××××× Laboratory, as well as all the
+  teachers and fellow students in the laboratory for their warm help
+  and support.
+
+  This research was supported by the National Natural Science Foundation of
+  China, which is gratefully acknowledged.
+\end{acknowledgements}
+
+\statement
+
+\begin{resume}
+  \section*{Curriculum Vitae}
+  Born in a county in Sichuan Province on Month ×, 197×.
+  \section*{Academic Work Completed During the Degree Program}
+  \subsection*{Research Papers}
+  \begin{achievements}
+  \item Yang Y, Ren T L, Zhang L T, et al. Miniature microphone with
+    silicon-based ferroelectric thin films[J]. Integrated
+    Ferroelectrics, 2003, 52:229--235.
+  \end{achievements}
+  \subsection*{Patents}
+  \begin{achievements}
+  \item Ren T L, Yang Y, Zhu Y P, et al. Method for controlling
+    domain-polarized regions and connecting electrodes in a
+    silicon-based ferroelectric microacoustic sensor[P].
+  \end{achievements}
+\end{resume}
+
+\begin{comments}[name={Comments from the Thesis Supervisor}]
+  The thesis presents~\ldots
+\end{comments}
+
+\begin{resolution}
+  The thesis presents~\ldots
+
+  Its principal original contributions are as follows:
+
+  1.~\ldots
+
+  2.~\ldots
+
+  3.~\ldots
+
+  The work demonstrates that the author possesses knowledge of ××××× and the
+  ability to ××××. The thesis ××××, and the defense ××××.
+
+  By a vote of × to × (or unanimously), the defense committee approved the
+  thesis defense and recommends that ××× (name) be awarded the Doctor's/Master's
+  degree in ××× (discipline category).
+\end{resolution}
+
+\end{document}

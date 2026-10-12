@@ -1,50 +1,32 @@
 /// Record Sheet Page
-///
-/// - anonymous (bool): Whether to use anonymous mode.
-/// - twoside (bool, str): Whether to use two-sided layout.
-/// - info (dictonary): Information about the student and thesis.
-/// - degree (str): The degree, this page is only for bachelor's thesis.
-/// - title (content): The title of the record sheet page.
-/// - outlined (bool): Whether to outline the page.
-/// - bookmarked (bool): Whether to add a bookmark for the page.
-/// - prefill (bool): Whether to prefill the student information.
-/// - rows (list(length)): The heights of the table rows.
-/// - columns (list(length)): The widths of the table columns.
-/// - author (content): The name of the student.
-/// - student-id (content): The student ID.
-/// - class (content): The class of the student.
-/// - thesis-title (content): The title of the thesis.
-/// - content (content): The main content and progress arrangement.
-/// - mid-term-comment (content): The mid-term assessment comments.
-/// - instructor-comment (content): The instructor's comments.
-/// - reviewer-comment (content): The reviewer's comments.
-/// - defense-comment (content): The defense committee's comments.
-/// -> content
 #let record-sheet(
-  // from entry
-  anonymous: false,
-  twoside: false,
-  info: (:),
-  degree: "bachelor",
-  // options
-  title: [综合论文训练记录表],
-  outlined: false,
-  bookmarked: false,
-  prefill: true,
-  rows: (1cm, 1cm, 12cm, 6.5cm),
-  columns: (2cm, 1fr, 1.5cm, 1fr, 1.5cm, 1fr),
-  content: [],
-  mid-term-comment: [],
-  instructor-comment: [],
-  reviewer-comment: [],
-  defense-comment: [],
+  anonymous: false, // (bool) Hide identifying information.
+  twoside: false, // (bool, str) Enable two-sided layout.
+  info: (:), // (dictionary) Student and thesis fields: author, student-id, class, title.
+  degree: "bachelor", // (str) Degree level.
+  title: [综合论文训练记录表], // (content) Page title.
+  outlined: false, // (bool) Include the page in the outline.
+  bookmarked: false, // (bool) Add a PDF bookmark.
+  prefill: true, // (bool) Whether to prefill the student information.
+  rows: (1cm, 1cm, 12cm, 6.5cm), // (array) Table row heights.
+  columns: (2cm, 1fr, 1.5cm, 1fr, 1.5cm, 1fr), // (array) Table column widths.
+  content: [], // (content) The main content and progress arrangement.
+  mid-term-comment: [], // (content) The mid-term assessment comments.
+  instructor-comment: [], // (content) The instructor's comments.
+  reviewer-comment: [], // (content) The reviewer's comments.
+  defense-comment: [], // (content) The defense committee's comments.
 ) = {
   /// Precheck
   if anonymous or degree != "bachelor" { return }
 
   import "../utils/font.typ": use-size
-  import "../utils/text.typ": v-text
   import "../utils/util.typ": parsed-title, twoside-pagebreak
+
+  let v-text(str, spacing: 3.6pt) = stack(
+    dir: ttb,
+    ..str.clusters(),
+    spacing: spacing,
+  )
 
   twoside-pagebreak(twoside)
 
@@ -52,9 +34,17 @@
   set par(first-line-indent: 0em, spacing: 1.75em)
   set text(size: use-size("五号"))
 
-  heading(level: 1, numbering: none, outlined: outlined, bookmarked: bookmarked, title)
+  heading(
+    level: 1,
+    numbering: none,
+    outlined: outlined,
+    bookmarked: bookmarked,
+    title,
+  )
 
-  show table.cell: it => if it.x == 0 or it.y == 0 and calc.even(it.x) { strong(it) } else { it }
+  show table.cell: it => if it.x == 0 or it.y == 0 and calc.even(it.x) {
+    strong(it)
+  } else { it }
 
   let cell-with-back(body, back) = table.cell(colspan: 5, grid(
     columns: 1fr,
@@ -63,7 +53,9 @@
     align(right, strong(back))
   ))
 
-  info.title = context if "title" in info { parsed-title(info.title).sum() } else { document.title }
+  info.title = context if "title" in info {
+    parsed-title(info.title).sum()
+  } else { document.title }
   info.author = context info.at("author", default: document.author.first())
 
   table(
@@ -121,26 +113,14 @@
 }
 
 /// Common review page for anything
-///
-/// - anonymous (bool): Whether to use anonymous mode.
-/// - twoside (bool, str): Whether to use two-sided layout.
-/// - degree (str): The degree.
-/// - title (content): The title of the acknowledgement page.
-/// - outlined (bool): Whether to outline the page.
-/// - bookmarked (bool): Whether to add a bookmark for the page.
-/// - it (content): The content of the acknowledgement page.
-/// -> content
 #let _review-of(
-  // from entry
-  anonymous: false,
-  twoside: false,
-  degree: "master",
-  // options
-  title: [评审材料],
-  outlined: true,
-  bookmarked: true,
-  // self
-  it,
+  anonymous: false, // (bool) Hide identifying information.
+  twoside: false, // (bool, str) Enable two-sided layout.
+  degree: "master", // (str) Degree level.
+  title: [评审材料], // (content) Page title.
+  outlined: true, // (bool) Include the page in the outline.
+  bookmarked: true, // (bool) Add a PDF bookmark.
+  it, // (content) Content to render.
 ) = {
   if anonymous or degree == "bachelor" { return }
 
@@ -148,7 +128,13 @@
 
   twoside-pagebreak(twoside)
 
-  heading(level: 1, numbering: none, outlined: outlined, bookmarked: bookmarked, title)
+  heading(
+    level: 1,
+    numbering: none,
+    outlined: outlined,
+    bookmarked: bookmarked,
+    title,
+  )
 
   it
 }

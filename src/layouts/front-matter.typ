@@ -1,16 +1,8 @@
 /// Front Matter Layout
-///
-/// - twoside (bool, str): Whether to use two-sided layout.
-/// - page-numbering (str): The numbering format for the page.
-/// - it (content): The content to be displayed in the front matter.
-/// -> content
 #let front-matter(
-  // from entry
-  twoside: false,
-  // options
-  page-numbering: "I",
-  // self
-  it,
+  twoside: false, // (bool, str) Enable two-sided layout.
+  page-numbering: "I", // (str) Page numbering format.
+  it, // (content) Content to render.
 ) = {
   import "../utils/util.typ": twoside-pagebreak
 

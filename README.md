@@ -18,6 +18,8 @@ TnTT 是“Tntt is Not a Tex Thesis Template for Tsinghua university”的递归
 
 ## 使用
 
+TnTT 0.6.0 要求 Typst 0.15.1 或更新版本。
+
 您可以在 [Typst Web][Typst] 应用中使用此模板：仪表板上单击「**Start from template**」，搜索 `tntt` 即可创建项目；或直接单击[此处][Quick Start]来快速创建。
 
 您也可以使用 `typst` 命令行工具来创建基于此模板的新项目：
@@ -29,11 +31,11 @@ typst init @preview/tntt
 当然，您也可以在任意 typst 文件中添加如下内容来导入此模板。
 
 ```typ
-#import "@preview/tntt:0.5.4"
+#import "@preview/tntt:0.6.0"
 #import tntt: define-config
 ```
 
-此外，由于模板更新较为频繁，您也可以通过克隆源仓库代码来使用最新的夜间版本，随后修改 `template/thesis.typ` 开始编辑您的论文。
+此外，由于模板更新较为频繁，您也可以通过克隆源仓库代码来使用最新的夜间版本，随后修改 [`template/thesis.typ`][Template] 开始编辑论文。英文论文使用同一入口，并将 `lang` 设为 `"en"`。
 
 > [!WARNING]
 >
@@ -56,6 +58,8 @@ typst init @preview/tntt
 
 ### 字体配置
 
+`define-config` 的 `fonts` 可直接使用 `"windows"`、`"macos"`、`"fandol"` 或 `"ubuntu"` 预设；也可传入含 `base` 的字典，覆盖指定字族。
+
 本模板主要面向中文排版，并依照论文字体规范设置了相应的中文字族信息，即：
 
 - SongTi: 宋体，正文字体，通常对应西文中的衬线字体
@@ -67,19 +71,11 @@ typst init @preview/tntt
 
 其中 Songti、KaiTi 和 FangSong 三个字族的默认西文字体为 `Times New Roman`，HeiTi 字族的默认西文字体为 `Arial`。对于 Windows 10/11 用户或安装了相应字体的 Linux 用户，中文字体配置可使用 `NSimSun`、`SimHei`、`KaiTi`、`FangSong`，这与 Word 论文模板中的字体配置完全相同，也是本模板默认的字体配置；对于 MacOS 用户，除了安装上述字体外，建议配置为 `Songti SC`、`Heiti SC`、`Kaiti SC`、`Fangsong SC`。您也可以用 `Source Han Serif`、`Source Han Sans` 等来替代宋体和黑体。**请注意，由于 Typst 目前对可变字体支持有限，不建议使用可变字体（部分平台 Noto 系列字体可能以可变字体形式分发，请自行留意）**。
 
-本模板已内置适用于 Windows 10/11 系统的字体配置，中文版 Windows 系统通常已预装这些字体。Linux 和 MacOS 用户如需严格使用论文要求的字体，可将本地 Windows 对应字体提取、下载并安装到系统中，或在下载后通过指定字体路径来使用，如：
+起步模板使用 Fandol、TeX Gyre 和 XITS 开源字体。已安装 TeX Live 时，可直接使用其中的字体编译仓库示例：
 
 ```sh
-# 将字体压缩包下载至当前目录，并解压到 fonts 文件夹，仅供参考
-curl -sSLf https://github.com/tuna/thuthesis-typst/releases/latest/download/fonts.zip -o fonts.zip
-unzip -q fonts.zip && rm fonts.zip
-
-# 在 typst 编译时指定字体路径，假设 thesis.typ 为入口文件
-typst compile thesis.typ --font-path fonts
-# 或（适用于克隆源代码仓库的用户）
-typst compile template/thesis.typ --root . --font-path fonts
-# 将 typst 文件视作脚本运行（仅适用于克隆源仓库代码的 UNIX 用户）
-# ./template/thesis.typ --root .. --font-path fonts
+export TYPST_FONT_PATHS="$(kpsewhich -var-value=TEXMFDIST)/fonts"
+typst compile --root . template/thesis.typ
 ```
 
 对于使用 VSCode + Tinymist 的用户（其他编辑器及更多设置请参考 [Tinymist 文档][Tinymist Docs]）：
@@ -87,9 +83,7 @@ typst compile template/thesis.typ --root . --font-path fonts
 ```jsonc
 // .vscode/settings.json
 {
-  "tinymist.fontPaths": [
-    "${workspaceFolder}/fonts"
-  ]
+  "tinymist.fontPaths": ["${workspaceFolder}/fonts"],
 }
 ```
 
@@ -97,7 +91,7 @@ typst compile template/thesis.typ --root . --font-path fonts
 
 ---
 
-更多使用说明与示例已内置在[模板][Template]中，建议从模板创建项目以获得更好的体验。
+完整的双语论文示例见[扩展示例][Extended Examples]。
 
 ## 预览
 
@@ -142,6 +136,8 @@ TnTT is the recursive acronym for "Tntt is Not a Tex Thesis Template for Tsinghu
 
 ## Usage
 
+TnTT 0.6.0 requires Typst 0.15.1 or later.
+
 You can use this template in the [Typst Web][Typst] by clicking "Start from template" on the dashboard and searching for `tntt` to create a project, or simply click [here][Quick Start] to get started quickly.
 
 Alternatively, you can use the `typst` command-line tool to create a new project based on this template:
@@ -153,11 +149,11 @@ typst init @preview/tntt
 Of course, you can also import the template in any Typst file by adding:
 
 ```typ
-#import "@preview/tntt:0.5.4"
+#import "@preview/tntt:0.6.0"
 #import tntt: define-config
 ```
 
-In addition, due to frequency updates, you can clone the source repository to use the latest nightly version, and then modify `template/thesis.typ` to edit your thesis.
+In addition, due to frequent updates, you can clone the repository to use the latest nightly version and then modify [`template/thesis.typ`][Template]. The same entrypoint supports English theses when `lang` is set to `"en"`.
 
 > [!WARNING]
 >
@@ -180,6 +176,8 @@ Before you begin editing, if you have no idea about Typst font configuration, pl
 
 ### Font Configuration
 
+The `fonts` option in `define-config` accepts `"windows"`, `"macos"`, `"fandol"`, or `"ubuntu"`, or a dictionary with `base` and family overrides.
+
 This template is designed primarily for Chinese typesetting and includes corresponding Chinese font families according to thesis typography standards:
 
 - **SongTi**: Serif typeface, used for the main body text.
@@ -191,19 +189,11 @@ This template is designed primarily for Chinese typesetting and includes corresp
 
 The default Western font for the Songti, KaiTi, and FangSong is `Times New Roman`, and the default Western font for the HeiTi is `Arial`. For Windows 10/11 users or Linux users with corresponding fonts installed, you can use the Chinese font configuration `NSimSun`, `SimHei`, `KaiTi`, and `FangSong`, which matched the Word thesis template exactly. For MacOS users, besides installing the above fonts, the recommended configuration is `Songti SC`, `Heiti SC`, `Kaiti SC`, and `Fangsong SC`. You may also replace `SongTi` and `HeiTi` with fonts such as `Source Han Serif` or `Source Han Sans`. **Please note that currently Typst has limited support variable fonts, it's recommended not to use variable fonts (Some platforms may distribute the Noto font series in variable font format, please pay attention to this yourself)**.
 
-This template includes built-in font configuration for Windows 10/11 systems, Chinese‑language Windows systems usually come with these fonts preinstalled. Linux and MacOS users who need to strictly adhere the required thesis fonts can extract, download, and install the corresponding local Windows font to the system, or use it after downloading by specifying the font path, for example:
+The starter uses the open Fandol, TeX Gyre, and XITS fonts. With TeX Live installed, use its bundled fonts to compile the repository examples:
 
 ```sh
-# Download the fonts zip to the current directory and extract it to the fonts folder, for reference only
-curl -sSLf https://github.com/tuna/thuthesis-typst/releases/latest/download/fonts.zip -o fonts.zip
-unzip -q fonts.zip && rm fonts.zip
-
-# Specify the font path when compiling, assuming thesis.typ is the entry file
-typst compile thesis.typ --font-path fonts
-# Or (for users who cloned the source repository)
-typst compile template/thesis.typ --root . --font-path fonts
-# Run typst file as script (for UNIX users who cloned the source repository only)
-# ./template/thesis.typ --root .. --font-path fonts
+export TYPST_FONT_PATHS="$(kpsewhich -var-value=TEXMFDIST)/fonts"
+typst compile --root . template/thesis.typ
 ```
 
 For users of VSCode with Tinymist (other editors and more options are documented in the [Tinymist Documentation][Tinymist Docs]):
@@ -211,9 +201,7 @@ For users of VSCode with Tinymist (other editors and more options are documented
 ```jsonc
 // .vscode/settings.json
 {
-  "tinymist.fontPaths": [
-    "${workspaceFolder}/fonts"
-  ]
+  "tinymist.fontPaths": ["${workspaceFolder}/fonts"],
 }
 ```
 
@@ -221,7 +209,7 @@ For users of the Typst Webapp, since the required Chinese fonts are not provided
 
 ---
 
-Further instructions and examples are included in the [template][Template]. Starting a project from the template is recommended for a better experience.
+See the [extended examples][Extended Examples] for a complete bilingual thesis.
 
 ## Preview
 
@@ -253,7 +241,7 @@ The template source code is distributed under the [MIT][LICENSE] license. You ar
 <!-- Markdown Links -->
 
 [Typst]: https://typst.app
-[Quick Start]: https://typst.app/app?template=tntt&version=0.5.4
+[Quick Start]: https://typst.app/app?template=tntt&version=0.6.0
 [Typst Docs]: https://typst.app/docs
 [Typst CN]: https://typst.dev
 [simple-handout-template]: https://github.com/chillcicada/simple-handout-template
@@ -267,7 +255,7 @@ The template source code is distributed under the [MIT][LICENSE] license. You ar
 [Myriad-Dreamin]: https://github.com/Myriad-Dreamin
 [THU VI]: https://vi.tsinghua.edu.cn/
 [Latest Release]: https://github.com/tuna/thuthesis-typst/releases/latest
-
 [Template]: template/thesis.typ
+[Extended Examples]: https://github.com/tuna/thuthesis-typst/tree/main/contrib
 [Preview]: thumbnail.png
 [LICENSE]: LICENSE

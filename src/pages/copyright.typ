@@ -1,25 +1,13 @@
 /// Copyright Page
-///
-/// - anonymous (bool): Whether to use anonymous mode.
-/// - twoside (bool, str): Whether to use two-sided layout.
-/// - degree (str): The degree.
-/// - title (content): The title of the copyright page.
-/// - outlined (bool): Whether to outline the page.
-/// - bookmarked (bool): Whether to add a bookmark for the page.
-/// - body (content): The body content of the copyright page.
-/// - back (content): The back content of the copyright page.
-/// -> content
 #let copyright(
-  // from entry
-  anonymous: false,
-  twoside: false,
-  degree: "bachelor",
-  // options
-  title: auto,
-  outlined: false,
-  bookmarked: false,
-  body: [],
-  back: [],
+  anonymous: false, // (bool) Hide identifying information.
+  twoside: false, // (bool, str) Enable two-sided layout.
+  degree: "bachelor", // (str) Degree level.
+  title: auto, // (content) Page title.
+  outlined: false, // (bool) Include the page in the outline.
+  bookmarked: false, // (bool) Add a PDF bookmark.
+  body: [], // (content) The body content of the copyright page.
+  back: [], // (content) The back content of the copyright page.
 ) = {
   if anonymous { return }
 
@@ -27,7 +15,9 @@
   import "../utils/util.typ": is-not-empty, twoside-pagebreak
 
   title = if title == auto {
-    if degree == "bachelor" [关于论文使用授权的说明] else [关于学位论文使用授权的说明]
+    if (
+      degree == "bachelor"
+    ) [关于论文使用授权的说明] else [关于学位论文使用授权的说明]
   } else { title }
 
   let preset-body = (
@@ -44,7 +34,9 @@
   )
 
   body = if is-not-empty(body) { body } else {
-    if degree == "bachelor" { preset-body.bachelor } else { preset-body.graduate }
+    if degree == "bachelor" { preset-body.bachelor } else {
+      preset-body.graduate
+    }
   }
 
   let back-items = ("作者签名： ", "导师签名： ", "日　　期： ", "日　　期： ")
@@ -66,7 +58,9 @@
   )
 
   back = if is-not-empty(back) { back } else {
-    if degree == "bachelor" { preset-back.bachelor } else { preset-back.graduate }
+    if degree == "bachelor" { preset-back.bachelor } else {
+      preset-back.graduate
+    }
   }
 
   /// Render the page
@@ -74,8 +68,17 @@
 
   set page(header: none)
   v(3.6em)
-  show heading.where(level: 1): it => align(center, block(text(size: use-size("二号"), it.body)))
-  heading(level: 1, numbering: none, outlined: outlined, bookmarked: bookmarked, title)
+  show heading.where(level: 1): it => align(center, block(text(
+    size: use-size("二号"),
+    it.body,
+  )))
+  heading(
+    level: 1,
+    numbering: none,
+    outlined: outlined,
+    bookmarked: bookmarked,
+    title,
+  )
   v(3.7em)
   set par(leading: 1.17em, spacing: 1.17em)
   text(size: use-size("四号"), body)

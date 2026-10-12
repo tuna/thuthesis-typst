@@ -1,24 +1,12 @@
 /// Acknowledgement Page
-///
-/// - anonymous (bool): Whether to use anonymous mode.
-/// - twoside (bool, str): Whether to use two-sided layout.
-/// - title (content): The title of the acknowledgement page.
-/// - title-vspace (length): The vertical space after the title.
-/// - outlined (bool): Whether to outline the page.
-/// - bookmarked (bool): Whether to add a bookmark for the page.
-/// - it (content): The content of the acknowledgement page.
-/// -> content
 #let acknowledge(
-  // from entry
-  anonymous: false,
-  twoside: false,
-  // options
-  title: [致　谢],
-  title-vspace: 2pt,
-  outlined: true,
-  bookmarked: true,
-  // self
-  it,
+  anonymous: false, // (bool) Hide identifying information.
+  twoside: false, // (bool, str) Enable two-sided layout.
+  title: [致　谢], // (content) Page title.
+  title-vspace: 2pt, // (length) The vertical space after the title.
+  outlined: true, // (bool) Include the page in the outline.
+  bookmarked: true, // (bool) Add a PDF bookmark.
+  it, // (content) Content to render.
 ) = {
   if anonymous { return }
 
@@ -26,7 +14,13 @@
 
   twoside-pagebreak(twoside)
 
-  heading(level: 1, numbering: none, outlined: outlined, bookmarked: bookmarked, title)
+  heading(
+    level: 1,
+    numbering: none,
+    outlined: outlined,
+    bookmarked: bookmarked,
+    title,
+  )
 
   v(title-vspace)
 
