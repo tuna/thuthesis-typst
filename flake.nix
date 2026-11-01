@@ -53,10 +53,12 @@
           devShells.default = pkgs.mkShellNoCC {
             packages = with pkgs; [
               tex
-              (typst.wrapper { fonts = [ texlivePackages.fandol ]; })
+              typst
               just
               typstyle
             ];
+            TYPST_FONT_PATHS = tex.fonts;
+            TYPST_IGNORE_SYSTEM_FONTS = "true";
           };
         };
     };
