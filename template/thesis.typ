@@ -3,19 +3,18 @@
 #import "../src/lib.typ" as tntt
 #import tntt: define-config, use-size
 
-/// 以下字体配置适用于安装了 Windows 10/11 字体及 Windows 10/11 简体中文字体扩展的设备，
 /// 请勿修改 font-family 中定义的键值，除 Math 数学字体外，修改西文字体时请使用 `latin-in-cjk` 覆盖字体范围
 ///
 /// 对于 MacOS 用户，可以使用 `Songti SC`、`Heiti SC`、`Kaiti SC`、`Fangsong SC` 和 `Menlo` 作为替代
 ///
 /// 对于 Linux 用户，可以使用 `Source Han Serif`、`Source Han Sans`、`Source Han Mono` 或文泉驿字体等进行配置
 #let font-family = (
-  SongTi: ((name: "Times New Roman", covers: "latin-in-cjk"), "NSimSun"),
-  HeiTi: ((name: "Arial", covers: "latin-in-cjk"), "SimHei"),
-  KaiTi: ((name: "Times New Roman", covers: "latin-in-cjk"), "KaiTi"),
-  FangSong: ((name: "Times New Roman", covers: "latin-in-cjk"), "FangSong"),
-  Mono: ((name: "DejaVu Sans Mono", covers: "latin-in-cjk"), "SimHei"),
-  Math: ("New Computer Modern Math", "KaiTi"),
+  SongTi: ((name: "TeX Gyre Termes", covers: "latin-in-cjk"), "FandolSong"),
+  HeiTi: ((name: "TeX Gyre Heros", covers: "latin-in-cjk"), "FandolHei"),
+  KaiTi: ((name: "TeX Gyre Termes", covers: "latin-in-cjk"), "FandolKai"),
+  FangSong: ((name: "TeX Gyre Termes", covers: "latin-in-cjk"), "FandolFang R"),
+  Mono: ((name: "TeX Gyre Cursor", covers: "latin-in-cjk"), "FandolHei"),
+  Math: ("XITS Math", "New Computer Modern Math", "FandolKai"),
 )
 
 #let (
